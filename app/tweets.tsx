@@ -1,9 +1,9 @@
 'use client'
 
-import Likes from "@/app/likes";
-import {useEffect, useOptimistic} from 'react'
 import {createClientComponentClient} from "@supabase/auth-helpers-nextjs";
-import {useRouter} from "next/navigation";
+import Likes from "@/app/likes";
+import { useEffect, useOptimistic } from 'react'
+import { useRouter } from "next/navigation";
 import Image from 'next/image';
 
 export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
@@ -11,7 +11,7 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
         tweets,
         (currentOptimisticTweets, newTweet) => {
             const newOptimisticTweets = [...currentOptimisticTweets]
-            const index = newOptimisticTweets.findIndex(tweet => tweet.id === newTweet.id)
+            const index = newOptimisticTweets.findIndex((tweet) => tweet.id === newTweet.id);
             newOptimisticTweets[index] = newTweet;
             return newOptimisticTweets;
         }
@@ -58,5 +58,5 @@ export default function Tweets({ tweets }: { tweets: TweetWithAuthor[] }) {
                 <Likes tweet={tweet} addOptimisticTweet={addOptimisticTweet}/>
             </div>
         </div>
-    ))
+    ));
 }

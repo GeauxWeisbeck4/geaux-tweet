@@ -10,4 +10,4 @@ declare global {
         likes: number;
         user_has_liked_tweet: boolean;
     };
-};
+}

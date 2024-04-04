@@ -1,6 +1,6 @@
-import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
-import {redirect} from "next/navigation";
-import {cookies} from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import GitHubButton from "@/app/login/github-button";
 
 export const dynamic = "force-dynamic";

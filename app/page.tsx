@@ -1,9 +1,8 @@
-import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import AuthButtonServer from "@/app/auth-button-server";
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 import NewTweet from "@/app/new-tweet";
-import Likes from "@/app/likes";
 import Tweets from "@/app/tweets";
 
 export const dynamic = "force-dynamic";
@@ -11,10 +10,10 @@ export const dynamic = "force-dynamic";
 export default async function Home() {
   const supabase = createServerComponentClient<Database>({ cookies });
 
-  const { data: { session }} = await supabase.auth.getSession();
+  const { data: { session }, } = await supabase.auth.getSession();
 
   if (!session) {
-      redirect('/login')
+      redirect('/login');
   }
 
   const { data } = await supabase.from("tweets").select("*, author: profiles(*), likes(user_id)").order('created_at', { ascending: false });
@@ -22,8 +21,8 @@ export default async function Home() {
   const tweets = data?.map(tweet => ({
       ...tweet,
       author: Array.isArray(tweet.author) ? tweet.author[0] : tweet.author,
-      user_has_liked_tweet: !!tweet.likes.find(like => like.user_id === session.user.id),
-      likes: tweet.likes.length
+      user_has_liked_tweet: !!tweet.likes.find( (like) => like.user_id === session.user.id),
+      likes: tweet.likes.length,
   })) ?? [];
 
 
@@ -38,5 +37,5 @@ export default async function Home() {
           <NewTweet user={session.user} />
           <Tweets tweets={tweets} />
       </div>
-  )
+  );
 }
